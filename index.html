@@ -64,7 +64,6 @@
   :focus-visible{outline:1px solid var(--fg);outline-offset:3px;border-radius:3px}
   [hidden]{display:none !important}
 
-  /* soft blur at the top and bottom edges while scrolling */
   .edge{position:fixed;left:0;right:0;height:64px;z-index:30;pointer-events:none;
     backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
   .edge.top{top:0;opacity:0;transition:opacity .25s;mask-image:linear-gradient(#000 20%,transparent);-webkit-mask-image:linear-gradient(#000 20%,transparent);
@@ -79,7 +78,6 @@
 
   .wrap{width:min(var(--col),100% - 40px);margin:0 auto;min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
 
-  /* ---------- header ---------- */
   .site-head{display:flex;justify-content:space-between;align-items:flex-end;padding:var(--edge) 0 14px;border-bottom:1px solid var(--line)}
   .site-head .who b{display:block;font-weight:600}
   .site-head .who span{color:var(--fg-2)}
@@ -87,7 +85,6 @@
   .site-head nav a{color:var(--fg-2);transition:color .15s}
   .site-head nav a:hover,.site-head nav a[aria-current="page"]{color:var(--fg)}
 
-  /* ---------- home ---------- */
   .hero{display:grid;place-items:center;min-height:clamp(290px,38vh,480px);flex:1 0 auto}
   .spacer{flex:.5 0 0}
   .hero svg{width:clamp(250px,26vh,360px);height:auto;overflow:visible}
@@ -132,6 +129,10 @@
   .peek-ph{display:grid;place-items:center;aspect-ratio:1;border:1px dashed var(--underline);border-radius:8px;font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
   .peek-mark-soft{background:#ffffff;color:#e0567f;font-size:13px;letter-spacing:.02em;box-shadow:inset 0 0 0 1px var(--edge-c)}
   @media (hover:none){.peek-card:not(.peek-photo){display:none}}
+  @media (hover:none){
+    .peek:hover .peek-card{opacity:0;visibility:hidden;transform:translateY(-4px) scale(.98);pointer-events:none}
+    .peek:focus-within .peek-card{opacity:1;visibility:visible;transform:translateY(0) scale(1);pointer-events:auto}
+  }
   .label{display:flex;justify-content:space-between;align-items:baseline;margin:84px 0 6px;padding-bottom:12px;border-bottom:1px solid var(--line)}
   .label h2{font-size:14px;font-weight:600}
   .label button,.label a{color:var(--fg-3);transition:color .15s}
@@ -153,7 +154,6 @@
   .entry.soon{opacity:.55}
   .entry.soon .when b{color:var(--fg-3)}
 
-  /* ---------- footer ---------- */
   .site-foot{margin-top:auto;padding:30px 0 calc(var(--edge) - 2px);border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:20px}
   .site-foot h4{font-size:14px;font-weight:600;margin-bottom:14px}
   .site-foot ul{list-style:none;display:grid;gap:4px}
@@ -166,7 +166,6 @@
   @keyframes ping{0%{transform:scale(1);opacity:.7}80%,100%{transform:scale(3.2);opacity:0}}
   .copy{grid-column:1/-1;margin-top:26px;color:var(--fg-3);font-size:12px;line-height:1.6}
 
-  /* ---------- work overlay ---------- */
   .work{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:24px;overflow-y:auto;overscroll-behavior:contain;
     background:var(--scrim);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
   .work-panel{width:min(480px,100%);background:var(--raise);border:1px solid var(--edge-c);border-radius:16px;overflow:hidden;
@@ -202,7 +201,6 @@
   .empty .links a:hover{color:var(--fg);border-color:var(--fg)}
   .work.opening .work-panel{animation:panel-in .38s cubic-bezier(.2,.8,.2,1) both}
   @keyframes panel-in{from{opacity:0;transform:translateY(12px) scale(.98)}}
-  /* ---------- case study ---------- */
   .case{display:grid;grid-template-columns:1fr minmax(0,var(--col)) 1fr;gap:0 40px;padding:0 24px}
   .case-side{grid-column:1;justify-self:end;width:200px;position:sticky;top:0;align-self:start;padding-top:120px;height:100vh}
   .back{display:inline-flex;align-items:center;gap:6px;color:var(--fg-2);transition:color .15s}
@@ -239,7 +237,6 @@
   .next svg{color:var(--fg-3);transition:transform .2s,color .2s}
   .next:hover svg{transform:translateX(4px);color:var(--fg)}
 
-  /* ---------- resume ---------- */
   .rs-intro{padding:84px 0 0}
   .rs-intro h1{font-size:14px;font-weight:600;margin-bottom:6px}
   .rs-intro p{color:var(--fg-2);max-width:52ch}
@@ -259,7 +256,6 @@
   .sq li{position:relative;padding-left:16px;color:var(--fg-2)}
   .sq li::before{content:"";position:absolute;left:0;top:.6em;width:5px;height:5px;background:var(--underline);border-radius:1px}
 
-  /* ---------- view transitions ---------- */
   .site-head{view-transition-name:site-head}
   ::view-transition-group(site-head){animation:none}
   ::view-transition-old(site-head){display:none}
@@ -273,7 +269,6 @@
   .work.opening .tile{animation:tile-in .5s cubic-bezier(.2,.8,.2,1) both}
   @keyframes tile-in{from{opacity:0;transform:translateY(14px)}}
 
-  /* ---------- responsive ---------- */
   @media (min-width:1600px) and (min-height:900px){
     :root{--col:700px}
     body{font-size:15px}
@@ -310,7 +305,6 @@
   @media (prefers-reduced-motion:reduce){
     *,::view-transition-old(root),::view-transition-new(root){animation:none !important;transition:none !important}
   }
-  /* pixel cursors (drawn from scratch; swap the images for your own later) */
   @media (hover:hover) and (pointer:fine){
     html, body, * { cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAATCAYAAACk9eypAAAAeElEQVR4XpXSQQ7AIAgEQGt60v7/pdVrmyXRKILCHq3DmpSQUv6CIxF3PYhAKa8ZEfCgDqxoAha0gBMSwQ6pQENbIKEj4OjebUXOz/QZG7EAXMKfb6m1XKOansQnikENMi5gO+PnCDVgMq9Wo6221hLNky1BC3/BDya/UV8kNXtHAAAAAElFTkSuQmCC") 0 0, auto; cursor: -webkit-image-set(url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAATCAYAAACk9eypAAAAeElEQVR4XpXSQQ7AIAgEQGt60v7/pdVrmyXRKILCHq3DmpSQUv6CIxF3PYhAKa8ZEfCgDqxoAha0gBMSwQ6pQENbIKEj4OjebUXOz/QZG7EAXMKfb6m1XKOansQnikENMi5gO+PnCDVgMq9Wo6221hLNky1BC3/BDya/UV8kNXtHAAAAAElFTkSuQmCC") 1x, url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAYAAADeB1slAAAArklEQVR4Xs3XwQqAIBAE0AxPbv//pem1KBgPgmnq6A4EHaL2rYm6OSfXc22k7KT3xsQPsCR0gYXF+/O9FTne8QjBmxHtmydgSeYLRkvWCUZJ1gt6JXoErRJ9gr8SvYJaiX5BSaJXIHJ8LnjYqawXoFKs2WlKa/c6QanHtZkvQOVpb7FfwljU7qPmCXKV94YuMJhxpf8ZwfPpvMh1gC6wtZW3hi5oPgOk57pcJ+iCGy3kbNYJ7Zd4AAAAAElFTkSuQmCC") 2x) 0 0, auto; cursor: image-set(url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAATCAYAAACk9eypAAAAeElEQVR4XpXSQQ7AIAgEQGt60v7/pdVrmyXRKILCHq3DmpSQUv6CIxF3PYhAKa8ZEfCgDqxoAha0gBMSwQ6pQENbIKEj4OjebUXOz/QZG7EAXMKfb6m1XKOansQnikENMi5gO+PnCDVgMq9Wo6221hLNky1BC3/BDya/UV8kNXtHAAAAAElFTkSuQmCC") 1x, url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAYAAADeB1slAAAArklEQVR4Xs3XwQqAIBAE0AxPbv//pem1KBgPgmnq6A4EHaL2rYm6OSfXc22k7KT3xsQPsCR0gYXF+/O9FTne8QjBmxHtmydgSeYLRkvWCUZJ1gt6JXoErRJ9gr8SvYJaiX5BSaJXIHJ8LnjYqawXoFKs2WlKa/c6QanHtZkvQOVpb7FfwljU7qPmCXKV94YuMJhxpf8ZwfPpvMh1gC6wtZW3hi5oPgOk57pcJ+iCGy3kbNYJ7Zd4AAAAAElFTkSuQmCC") 2x) 0 0, auto; }
     a, a *, button, button *, [role="button"], label, summary { cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAAAh0lEQVR4XrWS0QqAIAxFTXxy/v+XZq/FFSZTRreMDhRR7njbDMEhZzlxed8oKFSeSCI1Ev4XsH4kFrHWvS0RKb2px1E3raMCyyyDqPWAxfSADHUJNy8m0Pfzs2WYgi24w66L+A+R0tc/lSgtwSx5w/JBQuo+hS8plhLo7th4EKz0wj2JdiqMCxqQSHqZyCHtAAAAAElFTkSuQmCC") 5 0, pointer; cursor: -webkit-image-set(url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAAAh0lEQVR4XrWS0QqAIAxFTXxy/v+XZq/FFSZTRreMDhRR7njbDMEhZzlxed8oKFSeSCI1Ev4XsH4kFrHWvS0RKb2px1E3raMCyyyDqPWAxfSADHUJNy8m0Pfzs2WYgi24w66L+A+R0tc/lSgtwSx5w/JBQuo+hS8plhLo7th4EKz0wj2JdiqMCxqQSHqZyCHtAAAAAElFTkSuQmCC") 1x, url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAiCAYAAAA+stv/AAAAwElEQVR4Xu2X3Q5AMAxGTVyp939Sc0uQT5jVJh2txLkj/nb2rR1XZdK2NO4vHQbvMm+9pC7xEAnJUWDk3veH9xB1y7HUhLqB/wN+A41kCc1I64P6FIgNROrDoWICrl583wBHygyM2DEgTXMuMEO0ZkXfwEW3i6YZhHOcOs+hbyCVYvR9KZwxdQPbjojLwlPArB0D4C0TZgyIu+Fdwt20egZOBtClUKu59VsKewaegvuTsmvgrSzYNRBSqiuGqBuYAEFiUfcs+ZUyAAAAAElFTkSuQmCC") 2x) 5 0, pointer; cursor: image-set(url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAAAh0lEQVR4XrWS0QqAIAxFTXxy/v+XZq/FFSZTRreMDhRR7njbDMEhZzlxed8oKFSeSCI1Ev4XsH4kFrHWvS0RKb2px1E3raMCyyyDqPWAxfSADHUJNy8m0Pfzs2WYgi24w66L+A+R0tc/lSgtwSx5w/JBQuo+hS8plhLo7th4EKz0wj2JdiqMCxqQSHqZyCHtAAAAAElFTkSuQmCC") 1x, url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAiCAYAAAA+stv/AAAAwElEQVR4Xu2X3Q5AMAxGTVyp939Sc0uQT5jVJh2txLkj/nb2rR1XZdK2NO4vHQbvMm+9pC7xEAnJUWDk3veH9xB1y7HUhLqB/wN+A41kCc1I64P6FIgNROrDoWICrl583wBHygyM2DEgTXMuMEO0ZkXfwEW3i6YZhHOcOs+hbyCVYvR9KZwxdQPbjojLwlPArB0D4C0TZgyIu+Fdwt20egZOBtClUKu59VsKewaegvuTsmvgrSzYNRBSqiuGqBuYAEFiUfcs+ZUyAAAAAElFTkSuQmCC") 2x) 5 0, pointer; }
@@ -320,9 +314,7 @@
 <body>
 <div class="edge top" aria-hidden="true"></div>
 <div class="edge bottom" aria-hidden="true"></div>
-<!-- signature: add your own mark here later, e.g. <a class="sig" href="#home" aria-label="Jayson Huynh, home"><img src="..." alt=""></a> -->
 
-<!-- HOME -->
 <div class="wrap" id="v-home">
   <header class="site-head">
     <a class="who" href="#home"><b>Jayson Huynh</b><span>Product Designer</span></a>
@@ -364,7 +356,6 @@
   </footer>
 </div>
 
-<!-- RESUME -->
 <div class="wrap" id="v-resume" hidden>
   <header class="site-head">
     <a class="who" href="#home"><b>Jayson Huynh</b><span>Product Designer</span></a>
@@ -383,7 +374,6 @@
   </footer>
 </div>
 
-<!-- CASE STUDY -->
 <div class="case" id="v-case" hidden>
   <aside class="case-side">
     <a class="back" href="#home"><svg width="8" height="12" viewBox="0 0 8 12"><path d="M6 1 1.5 6 6 11" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Home</a>
@@ -394,7 +384,6 @@
   <main class="case-main" id="caseMain"></main>
 </div>
 
-<!-- WORK OVERLAY -->
 <div class="work" id="work" hidden>
  <div class="work-panel" role="dialog" aria-modal="true" aria-label="Work" tabindex="-1">
   <div class="work-bar">
@@ -411,8 +400,6 @@
 </div>
 
 <script>
-/* ---------- content ---------- */
-/* Add a project by adding one object here. */
 const PROJECTS = [
   {
     id:"dallashacks", name:"DallasHacks", label:"Featured", year:"Case study", mark:"D",
@@ -464,13 +451,9 @@ const RESUME = {
   technical:["Figma","Miro","Framer","Claude","Illustrator","Photoshop","Google Workspace"]
 };
 
-/* ---------- placeholder art ----------
-   Dark screens in each project's accent. Swap for real work:
-   replace art(p, n) with <img src="..." alt="..."> */
 function art(p, v=0){
   const W=400,H=300,a=p.accent, id=p.id+v;
   const layouts = [
-    // 0: browser + phone
     `<g transform="translate(46 58)">
        <rect width="232" height="170" rx="8" fill="#121215" stroke="#26262b"/>
        <rect width="232" height="20" rx="8" fill="#18181c"/><rect y="12" width="232" height="8" fill="#18181c"/>
@@ -488,7 +471,6 @@ function art(p, v=0){
        <rect x="16" y="60" width="56" height="44" rx="4" fill="${a}" opacity=".18" stroke="${a}" stroke-opacity=".4"/>
        <rect x="16" y="126" width="56" height="16" rx="8" fill="${a}"/>
      </g>`,
-    // 1: wide hero
     `<g transform="translate(36 40)">
        <rect width="328" height="220" rx="8" fill="#121215" stroke="#26262b"/>
        <rect x="16" y="16" width="40" height="6" rx="3" fill="#3e3e45"/>
@@ -502,7 +484,6 @@ function art(p, v=0){
        <rect x="16" y="182" width="296" height="1" fill="#24242a"/>
        <rect x="16" y="194" width="60" height="5" rx="2.5" fill="#3e3e45"/><rect x="120" y="194" width="60" height="5" rx="2.5" fill="#3e3e45"/><rect x="224" y="194" width="60" height="5" rx="2.5" fill="#3e3e45"/>
      </g>`,
-    // 2: form / registration
     `<g transform="translate(110 30)">
        <rect width="180" height="240" rx="10" fill="#121215" stroke="#26262b"/>
        <rect x="18" y="22" width="90" height="10" rx="2" fill="#ececea" opacity=".9"/>
@@ -511,7 +492,6 @@ function art(p, v=0){
        <rect x="18" y="186" width="10" height="10" rx="2" fill="${a}"/><rect x="34" y="189" width="80" height="4" rx="2" fill="#3e3e45"/>
        <rect x="18" y="206" width="144" height="20" rx="10" fill="${a}"/>
      </g>`,
-    // 3: schedule list
     `<g transform="translate(60 36)">
        <rect width="280" height="228" rx="10" fill="#121215" stroke="#26262b"/>
        <rect x="18" y="20" width="80" height="9" rx="2" fill="#ececea" opacity=".9"/>
@@ -539,11 +519,9 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const arrow = `<span class="arrow" aria-hidden="true">→</span>`;
 
-/* ---------- work overlay ---------- */
 $("#workClose").addEventListener("click",()=>{ location.hash = lastPage; });
 $("#work").addEventListener("click", e=>{ if(e.target === e.currentTarget) location.hash = lastPage; });
 
-/* ---------- case study ---------- */
 const SECTIONS = [
   ["overview","Overview", p => p.overview, "What is this project, and who is it for?"],
   ["problem","Problem", p => p.problem, "What wasn't working, and how did you find out?"],
@@ -588,7 +566,6 @@ function renderCase(p){
   document.querySelectorAll(".case-main section").forEach(s=>tocObserver.observe(s));
 }
 
-/* ---------- resume ---------- */
 function renderResume(){
   const work = RESUME.work.flatMap(w => w.roles.map(r => `
     <div class="rs-item">
@@ -616,7 +593,6 @@ function renderResume(){
 }
 renderResume();
 
-/* ---------- routing ---------- */
 const reduce = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 const work = $("#work");
 let page = null, lastPage = "home", savedY = 0;
@@ -660,6 +636,20 @@ addEventListener("keydown", e=>{
   if(!work.hidden) location.hash = lastPage;
   else if(page && page.startsWith("case:")) location.hash = "home";
 });
+(()=>{
+  const trig = document.querySelector(".peek-trigger"); if(!trig) return;
+  let wasOpen = false;
+  trig.addEventListener("pointerdown", () => { wasOpen = document.activeElement === trig; });
+  trig.addEventListener("click", e => { if(wasOpen){ e.preventDefault(); trig.blur(); } wasOpen = false; });
+  document.addEventListener("pointerdown", e => {
+    const a = document.activeElement;
+    if(a && a.closest && a.closest(".peek") && !(e.target.closest && e.target.closest(".peek-trigger"))) a.blur();
+  }, true);
+  document.addEventListener("keydown", e => {
+    const a = document.activeElement;
+    if(e.key === "Escape" && a && a.closest && a.closest(".peek")) a.blur();
+  });
+})();
 const onScroll = () => {
   document.body.classList.toggle("scrolled", scrollY > 8);
   document.body.classList.toggle("more", innerHeight + scrollY < document.documentElement.scrollHeight - 8);
@@ -669,14 +659,13 @@ addEventListener("resize", onScroll);
 addEventListener("hashchange", () => requestAnimationFrame(onScroll));
 route(); onScroll();
 </script>
-<!-- 8-bit star cursor trail (desktop mouse only) -->
 <canvas id="trail" aria-hidden="true" style="position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:60"></canvas>
 <script>
 (()=>{
   const fine = matchMedia("(hover:hover) and (pointer:fine)");
   const still = matchMedia("(prefers-reduced-motion: reduce)");
   const cv = document.getElementById("trail"), ctx = cv.getContext("2d");
-  const STAR = [            /* 8 x 8 pixels = 8px across */
+  const STAR = [
     "...##...",
     "...##...",
     "..####..",
@@ -689,8 +678,8 @@ route(); onScroll();
   const SPARK = [".#.","###",".#."];
   const lightMode = matchMedia("(prefers-color-scheme: light)");
   const pal = () => lightMode.matches
-    ? {shade:"#e58fb0", fill:"#ffc2d8", glint:"#ffffff"}   /* light mode: soft pink */
-    : {shade:"#cdb45e", fill:"#fff0a6", glint:"#ffffff"};  /* dark mode: pale yellow */
+    ? {shade:"#e58fb0", fill:"#ffc2d8", glint:"#ffffff"}
+    : {shade:"#cdb45e", fill:"#fff0a6", glint:"#ffffff"};
   let dpr = 1, parts = [], last = null, raf = 0;
   function size(){ dpr = devicePixelRatio || 1; cv.width = innerWidth*dpr; cv.height = innerHeight*dpr; ctx.imageSmoothingEnabled = false; }
   size(); addEventListener("resize", size);
@@ -698,7 +687,7 @@ route(); onScroll();
     const w = shape[0].length, h = shape.length, ox = Math.round(x - w*px/2), oy = Math.round(y - h*px/2);
     ctx.globalAlpha = a;
     const c = pal();
-    ctx.fillStyle = c.shade;                         /* 1px drop shadow for that cartridge look */
+    ctx.fillStyle = c.shade;
     for(let r=0;r<h;r++) for(let q=0;q<w;q++) if(shape[r][q]==="#") ctx.fillRect(ox+q*px+1, oy+r*px+1, px, px);
     ctx.fillStyle = c.fill;
     for(let r=0;r<h;r++) for(let q=0;q<w;q++) if(shape[r][q]==="#") ctx.fillRect(ox+q*px, oy+r*px, px, px);
@@ -712,7 +701,7 @@ route(); onScroll();
   }
   addEventListener("pointermove", e=>{
     if(!fine.matches || still.matches || e.pointerType !== "mouse") return;
-    if(last && Math.hypot(e.clientX-last.x, e.clientY-last.y) < 34) return;   /* one star every ~34px of travel */
+    if(last && Math.hypot(e.clientX-last.x, e.clientY-last.y) < 34) return;
     last = {x:e.clientX, y:e.clientY};
     spawn(e.clientX, e.clientY + 6);
   }, {passive:true});
@@ -723,7 +712,7 @@ route(); onScroll();
     for(const p of parts){
       const t = (now - p.born) / p.life;
       p.x += p.vx; p.y += p.vy;
-      const steps = Math.floor(t*4)/4;              /* fade in chunky steps */
+      const steps = Math.floor(t*4)/4;
       sprite(p.big ? STAR : SPARK, p.x, p.y, 1, 1 - steps*.85);
     }
     ctx.globalAlpha = 1;
