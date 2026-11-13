@@ -650,6 +650,10 @@ addEventListener("keydown", e=>{
     if(e.key === "Escape" && a && a.closest && a.closest(".peek")) a.blur();
   });
 })();
+document.addEventListener("click", e => {
+  const a = e.target.closest(".peek a[target='_blank']");
+  if(a) setTimeout(() => a.blur(), 0);
+});
 const onScroll = () => {
   document.body.classList.toggle("scrolled", scrollY > 8);
   document.body.classList.toggle("more", innerHeight + scrollY < document.documentElement.scrollHeight - 8);
