@@ -654,6 +654,13 @@ document.addEventListener("click", e => {
   const a = e.target.closest(".peek a[target='_blank']");
   if(a) setTimeout(() => a.blur(), 0);
 });
+document.addEventListener("click", e => {
+  const a = e.target.closest(".peek a[target='_blank']");
+  if(a) setTimeout(() => a.blur(), 0);
+});
+document.querySelectorAll(".peek-trigger").forEach(t => t.addEventListener("click", () => {
+  if(matchMedia("(hover:hover)").matches) t.blur();
+}));
 const onScroll = () => {
   document.body.classList.toggle("scrolled", scrollY > 8);
   document.body.classList.toggle("more", innerHeight + scrollY < document.documentElement.scrollHeight - 8);
