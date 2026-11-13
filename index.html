@@ -178,15 +178,6 @@
   .work-tools button:hover{color:var(--fg)}
   .work-tools button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
   .work-tools .sep{width:1px;height:16px;background:var(--line-dash);margin:0 6px}
-  .grid{--cols:1;display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:18px;
-    width:min(calc(520px * var(--cols) + 18px * (var(--cols) - 1)),100% - 36px);margin:10px auto 96px}
-  .tile{display:block}
-  .tile .art{border-radius:10px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3;transition:border-color .2s,transform .35s cubic-bezier(.2,.8,.2,1)}
-  .tile:hover .art{border-color:var(--underline);transform:translateY(-2px)}
-  .tile .art svg{display:block;width:100%;height:100%}
-  .tile .cap{display:flex;justify-content:space-between;gap:12px;padding:10px 2px 0}
-  .tile .cap b{font-weight:600}
-  .tile .cap span{color:var(--fg-3);font:12px var(--mono)}
 
   .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .empty{display:grid;justify-items:center;text-align:center;padding:44px 28px 40px}
@@ -201,41 +192,6 @@
   .empty .links a:hover{color:var(--fg);border-color:var(--fg)}
   .work.opening .work-panel{animation:panel-in .38s cubic-bezier(.2,.8,.2,1) both}
   @keyframes panel-in{from{opacity:0;transform:translateY(12px) scale(.98)}}
-  .case{display:grid;grid-template-columns:1fr minmax(0,var(--col)) 1fr;gap:0 40px;padding:0 24px}
-  .case-side{grid-column:1;justify-self:end;width:200px;position:sticky;top:0;align-self:start;padding-top:120px;height:100vh}
-  .back{display:inline-flex;align-items:center;gap:6px;color:var(--fg-2);transition:color .15s}
-  .back:hover{color:var(--fg)}
-  .side-meta{margin-top:26px;color:var(--fg-3);font-size:12px;display:grid;gap:2px}
-  .side-meta b{color:var(--fg-2);font-weight:400}
-  .toc{list-style:none;margin-top:24px;display:grid;gap:6px}
-  .toc button{color:var(--fg-3);text-align:left;transition:color .15s}
-  .toc button:hover,.toc button.on{color:var(--fg)}
-  .side-more{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);display:grid;gap:8px;list-style:none}
-  .side-more a{color:var(--fg-2);transition:color .15s}
-  .side-more a:hover{color:var(--fg)}
-  .case-main{grid-column:2;padding:56px 0 120px}
-  .case-mark{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--raise-2);border:1px solid var(--line);
-    font:italic 22px/1 var(--serif)}
-  .case-main h1{font:400 clamp(30px,4.4vw,40px)/1.08 var(--serif);letter-spacing:-.01em;margin:20px 0 14px;max-width:18ch}
-  .case-main .lede{color:var(--fg-2);font-size:15px;max-width:56ch}
-  .facts{display:grid;grid-template-columns:repeat(3,1fr);margin:26px 0 30px;border-top:1px dashed var(--line-dash);border-bottom:1px dashed var(--line-dash)}
-  .facts div{padding:12px 0}
-  .facts div + div{padding-left:16px;border-left:1px dashed var(--line-dash)}
-  .facts dt{color:var(--fg-3);font-size:12px}
-  .facts dd{margin-top:2px}
-  .shot{border-radius:12px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10}
-  .shot svg{display:block;width:100%;height:100%}
-  .shots{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-  .shots .shot{aspect-ratio:4/3}
-  .case-main section{scroll-margin-top:70px}
-  .case-main h2{font-size:14px;font-weight:600;margin:52px 0 8px}
-  .case-main p{color:var(--fg-2);font-size:14.5px;line-height:1.65;max-width:62ch}
-  .placeholder{color:var(--fg-3) !important;font-style:italic}
-  .next{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .next small{display:block;color:var(--fg-3);font-size:12px}
-  .next b{font:400 24px/1.2 var(--serif)}
-  .next svg{color:var(--fg-3);transition:transform .2s,color .2s}
-  .next:hover svg{transform:translateX(4px);color:var(--fg)}
 
   .rs-intro{padding:84px 0 0}
   .rs-intro h1{font-size:14px;font-weight:600;margin-bottom:6px}
@@ -266,8 +222,6 @@
   @keyframes vt-in{from{opacity:0;transform:translateY(8px);filter:blur(3px)}}
   .work.opening{animation:wk-in .3s cubic-bezier(.2,.8,.2,1)}
   @keyframes wk-in{from{opacity:0}}
-  .work.opening .tile{animation:tile-in .5s cubic-bezier(.2,.8,.2,1) both}
-  @keyframes tile-in{from{opacity:0;transform:translateY(14px)}}
 
   @media (min-width:1600px) and (min-height:900px){
     :root{--col:700px}
@@ -280,13 +234,6 @@
     body{font-size:16px}
     .rs-when{font-size:13.5px}
   }
-  @media (max-width:1040px){
-    .case{display:block;padding:0}
-    .case-side{position:sticky;top:0;z-index:5;width:auto;height:auto;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;
-      background:linear-gradient(var(--bg) 70%,transparent)}
-    .case-side .side-meta,.case-side .toc,.case-side .side-more{display:none}
-    .case-main{width:min(var(--col),100% - 40px);margin:0 auto;padding-top:20px}
-  }
   @media (max-width:560px){
     .entry{grid-template-columns:1fr;gap:6px}
     .entry .when b{display:inline;margin-right:8px}
@@ -294,12 +241,8 @@
     .site-foot{grid-template-columns:1fr 1fr}
     .status{grid-column:1/-1;padding-top:6px}
     .hero{min-height:200px}.ph{width:96px}
-    .facts{grid-template-columns:1fr}
-    .facts div + div{padding-left:0;border-left:0;border-top:1px dashed var(--line-dash)}
-    .shots{grid-template-columns:1fr}
     .rs-cols{grid-template-columns:1fr}
     .work-tools .cols3{display:none}
-    .grid{--cols:1 !important}
     .sig{display:none}
   }
   @media (prefers-reduced-motion:reduce){
@@ -374,16 +317,6 @@
   </footer>
 </div>
 
-<div class="case" id="v-case" hidden>
-  <aside class="case-side">
-    <a class="back" href="#home"><svg width="8" height="12" viewBox="0 0 8 12"><path d="M6 1 1.5 6 6 11" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Home</a>
-    <div class="side-meta" id="sideMeta"></div>
-    <ul class="toc" id="toc"></ul>
-    <ul class="side-more" id="sideMore"></ul>
-  </aside>
-  <main class="case-main" id="caseMain"></main>
-</div>
-
 <div class="work" id="work" hidden>
  <div class="work-panel" role="dialog" aria-modal="true" aria-label="Work" tabindex="-1">
   <div class="work-bar">
@@ -400,171 +333,29 @@
 </div>
 
 <script>
-const PROJECTS = [
-  {
-    id:"dallashacks", name:"DallasHacks", label:"Featured", year:"Case study", mark:"D",
-    title:"Redesigning a hackathon's home on the web",
-    desc:"Rebuilt the event site around registration, event details and accessibility across web, tablet and mobile.",
-    tags:["UI/UX design","Accessibility","Responsive","Figma"],
-    accent:"#6a80ff",
-    role:"UI/UX design", time:"Add timeline", tools:"Figma",
-    overview:"A redesign of the DallasHacks event website. The goal was to make registering, finding event details, and using the site with assistive technology straightforward on every screen size.",
-    real:true
-  },
-  {
-    id:"laced", name:"Laced", label:"Case study", year:"", mark:"L",
-    title:"Laced",
-    desc:"Add a one-line summary of Laced.",
-    tags:["Add tags"],
-    accent:"#4fd1a0",
-    role:"Add role", time:"Add timeline", tools:"Add tools"
-  }
-];
-
 const RESUME = {
   summary:"Designing with empathy at the core — a product designer who crafts intuitive, inclusive, and research-driven solutions.",
   work:[
-    {org:"Kyndryl", where:"", roles:[{title:"User Interface Designer", when:"Dec 2026 — Current", points:[]}]},
-    {org:"Bowe Systec", where:"Plano, Texas", roles:[{title:"Customer Experience Engineer", when:"Jun 2026 — Nov 2026", points:[
-      "Analyzed software, mechanical, and electrical issues to identify root causes and develop solutions that address underlying problems.",
-      "Interpreted technical schematics and systems documentation to understand how components interact from beginning-to-end, applying problem solving to identify failure points while troubleshooting.",
-      "Served as the primary point of contact for customers during equipment outages, communicating and keeping them informed while restoring systems to full functionality."]}]},
-    {org:"Collin College", where:"Plano, Texas", roles:[{title:"Student Assistant", when:"Mar 2023 — Jun 2025", points:[
-      "Managed data entry and record-keeping for student visits and records, ensuring accuracy, confidentiality, and consistency across internal systems.",
-      "Provided technical support for the computer lab, troubleshooting hardware and software issues to minimize downtime and support student productivity.",
-      "Served as the first point of contact for visitors and students, improving the overall visitor experience through clear communication, efficient issue resolution, and attention to user needs."]}]},
+    {org:"Kyndryl", where:"", roles:[{title:"User Interface Designer", when:"Dec 2026 — Current"}]},
+    {org:"Bowe Systec", where:"Plano, Texas", roles:[{title:"Customer Experience Engineer", when:"Jun 2026 — Nov 2026"}]},
+    {org:"Collin College", where:"Plano, Texas", roles:[{title:"Student Assistant", when:"Mar 2023 — Jun 2025"}]},
     {org:"Sandy Liang", where:"New York City, New York", roles:[
-      {title:"E-commerce & Operations Assistant", when:"Dec 2019 — Apr 2020", points:[
-        "Oversaw e-commerce website development, ongoing maintenance, and optimization efforts, with a focus on usability, scalability, and site performance.",
-        "Improved the end-to-end customer journey by refining site navigation, product discovery, and checkout flows to reduce friction and support conversion.",
-        "Supported day-to-day e-commerce operations by collaborating across teams to maintain accurate product content, consistent updates, and a smooth shopping experience."]},
-      {title:"Design Intern", when:"Sep 2019 — Dec 2019", points:[
-        "Collaborated closely with a team of designers to research previous collections, analyze design trends, and develop detailed design drafts for upcoming projects, ensuring alignment with the studio’s creative vision.",
-        "Created comprehensive visual concepts by applying principles of color theory, typography, and layout design, exploring multiple iterations to establish cohesive and engaging design direction.",
-        "Developed and refined style guides and visual assets, carefully ensuring all design elements were consistent with established brand guidelines and creative standards."]}]}
+      {title:"E-commerce & Operations Assistant", when:"Dec 2019 — Apr 2020"},
+      {title:"Design Intern", when:"Sep 2019 — Dec 2019"}]}
   ],
   education:[
-    {org:"Collin College", where:"Plano, Texas", title:"AAS in Communication Design, User Experience", when:"Jan 2023 — May 2025"},
-    {org:"Baylor University", where:"Waco, Texas", title:"BA in Biology", when:"Aug 2014 — May 2019"}
+    {org:"Collin College", where:"Plano, Texas", title:"AAS in Communication Design, User Experience"},
+    {org:"Baylor University", where:"Waco, Texas", title:"BA in Biology"}
   ],
   skills:["Interaction Design","User Research","Prototyping","Design Systems","Information Architecture","Usability Testing","0→1 Innovation"],
   technical:["Figma","Miro","Framer","Claude","Illustrator","Photoshop","Google Workspace"]
 };
 
-function art(p, v=0){
-  const W=400,H=300,a=p.accent, id=p.id+v;
-  const layouts = [
-    `<g transform="translate(46 58)">
-       <rect width="232" height="170" rx="8" fill="#121215" stroke="#26262b"/>
-       <rect width="232" height="20" rx="8" fill="#18181c"/><rect y="12" width="232" height="8" fill="#18181c"/>
-       <circle cx="12" cy="10" r="3" fill="#2e2e34"/><circle cx="22" cy="10" r="3" fill="#2e2e34"/><circle cx="32" cy="10" r="3" fill="#2e2e34"/>
-       <rect x="18" y="40" width="96" height="10" rx="2" fill="#ececea" opacity=".9"/>
-       <rect x="18" y="58" width="128" height="5" rx="2.5" fill="#3e3e45"/><rect x="18" y="68" width="110" height="5" rx="2.5" fill="#3e3e45"/>
-       <rect x="18" y="86" width="52" height="16" rx="8" fill="${a}"/>
-       <rect x="18" y="118" width="196" height="36" rx="4" fill="#17171b" stroke="#24242a"/>
-     </g>
-     <g transform="translate(262 112)">
-       <rect width="88" height="160" rx="16" fill="#0e0e10" stroke="#2c2c32"/>
-       <rect x="6" y="6" width="76" height="148" rx="11" fill="#141417"/>
-       <rect x="16" y="26" width="44" height="6" rx="3" fill="#ececea" opacity=".85"/>
-       <rect x="16" y="38" width="56" height="4" rx="2" fill="#3e3e45"/><rect x="16" y="46" width="48" height="4" rx="2" fill="#3e3e45"/>
-       <rect x="16" y="60" width="56" height="44" rx="4" fill="${a}" opacity=".18" stroke="${a}" stroke-opacity=".4"/>
-       <rect x="16" y="126" width="56" height="16" rx="8" fill="${a}"/>
-     </g>`,
-    `<g transform="translate(36 40)">
-       <rect width="328" height="220" rx="8" fill="#121215" stroke="#26262b"/>
-       <rect x="16" y="16" width="40" height="6" rx="3" fill="#3e3e45"/>
-       <rect x="240" y="14" width="72" height="10" rx="5" fill="${a}"/>
-       <rect x="16" y="58" width="170" height="16" rx="3" fill="#ececea" opacity=".92"/>
-       <rect x="16" y="80" width="120" height="16" rx="3" fill="#ececea" opacity=".92"/>
-       <rect x="16" y="110" width="150" height="5" rx="2.5" fill="#3e3e45"/><rect x="16" y="120" width="130" height="5" rx="2.5" fill="#3e3e45"/>
-       <rect x="16" y="140" width="70" height="20" rx="10" fill="${a}"/><rect x="94" y="140" width="70" height="20" rx="10" fill="none" stroke="#3e3e45"/>
-       <rect x="204" y="52" width="108" height="112" rx="6" fill="${a}" opacity=".14" stroke="${a}" stroke-opacity=".35"/>
-       <circle cx="258" cy="108" r="26" fill="none" stroke="${a}" stroke-opacity=".6"/>
-       <rect x="16" y="182" width="296" height="1" fill="#24242a"/>
-       <rect x="16" y="194" width="60" height="5" rx="2.5" fill="#3e3e45"/><rect x="120" y="194" width="60" height="5" rx="2.5" fill="#3e3e45"/><rect x="224" y="194" width="60" height="5" rx="2.5" fill="#3e3e45"/>
-     </g>`,
-    `<g transform="translate(110 30)">
-       <rect width="180" height="240" rx="10" fill="#121215" stroke="#26262b"/>
-       <rect x="18" y="22" width="90" height="10" rx="2" fill="#ececea" opacity=".9"/>
-       <rect x="18" y="38" width="120" height="4" rx="2" fill="#3e3e45"/>
-       ${[0,1,2].map(i=>`<rect x="18" y="${62+i*40}" width="40" height="4" rx="2" fill="#56565e"/><rect x="18" y="${70+i*40}" width="144" height="20" rx="4" fill="#17171b" stroke="${i===1?a:'#2a2a30'}"/>`).join("")}
-       <rect x="18" y="186" width="10" height="10" rx="2" fill="${a}"/><rect x="34" y="189" width="80" height="4" rx="2" fill="#3e3e45"/>
-       <rect x="18" y="206" width="144" height="20" rx="10" fill="${a}"/>
-     </g>`,
-    `<g transform="translate(60 36)">
-       <rect width="280" height="228" rx="10" fill="#121215" stroke="#26262b"/>
-       <rect x="18" y="20" width="80" height="9" rx="2" fill="#ececea" opacity=".9"/>
-       <rect x="200" y="18" width="62" height="14" rx="7" fill="none" stroke="#3e3e45"/>
-       ${[0,1,2,3,4].map(i=>`<rect x="18" y="${50+i*34}" width="244" height="1" fill="#22222a"/>
-         <rect x="18" y="${60+i*34}" width="34" height="5" rx="2.5" fill="#56565e"/>
-         <rect x="70" y="${58+i*34}" width="${110-i*12}" height="7" rx="2" fill="#d6d6d3" opacity=".8"/>
-         <rect x="70" y="${70+i*34}" width="${80+i*6}" height="4" rx="2" fill="#3e3e45"/>
-         <circle cx="252" cy="${66+i*34}" r="4" fill="${i===1?a:'#2e2e34'}"/>`).join("")}
-     </g>`
-  ];
-  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${p.name} placeholder image">
-    <defs>
-      <radialGradient id="g${id}" cx=".7" cy=".1" r=".9"><stop offset="0" stop-color="${a}" stop-opacity=".16"/><stop offset=".6" stop-color="${a}" stop-opacity="0"/></radialGradient>
-      <pattern id="d${id}" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="#ffffff" opacity=".06"/></pattern>
-    </defs>
-    <rect width="${W}" height="${H}" fill="#0d0d0f"/>
-    <rect width="${W}" height="${H}" fill="url(#d${id})"/>
-    <rect width="${W}" height="${H}" fill="url(#g${id})"/>
-    ${layouts[v % layouts.length]}
-  </svg>`;
-}
-
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const arrow = `<span class="arrow" aria-hidden="true">→</span>`;
 
 $("#workClose").addEventListener("click",()=>{ location.hash = lastPage; });
 $("#work").addEventListener("click", e=>{ if(e.target === e.currentTarget) location.hash = lastPage; });
-
-const SECTIONS = [
-  ["overview","Overview", p => p.overview, "What is this project, and who is it for?"],
-  ["problem","Problem", p => p.problem, "What wasn't working, and how did you find out?"],
-  ["process","Process", p => p.process, "Research, sketches, iterations, testing."],
-  ["outcome","Outcome", p => p.outcome, "What shipped and what changed because of it."]
-];
-let tocObserver;
-function renderCase(p){
-  const i = PROJECTS.indexOf(p), next = PROJECTS[(i+1)%PROJECTS.length];
-  document.title = `${p.name} // Jayson Huynh`;
-  $("#sideMeta").innerHTML = `<span>${esc(p.label)}</span><span>Role <b>${esc(p.role)}</b></span><span>Tools <b>${esc(p.tools)}</b></span>`;
-  $("#toc").innerHTML = SECTIONS.map(([id,name])=>`<li><button data-to="${id}">${name}</button></li>`).join("");
-  $("#sideMore").innerHTML = PROJECTS.filter(x=>x!==p).map(x=>`<li><a href="#${x.id}">${esc(x.name)} →</a></li>`).join("") + `<li><a href="#work">All work</a></li>`;
-  $("#caseMain").innerHTML = `
-    <div class="case-mark" aria-hidden="true">${esc(p.mark)}</div>
-    <h1>${esc(p.real ? p.title : p.name)}</h1>
-    <p class="lede">${esc(p.desc)}</p>
-    <dl class="facts">
-      <div><dt>Role</dt><dd>${esc(p.role)}</dd></div>
-      <div><dt>Timeline</dt><dd>${esc(p.time)}</dd></div>
-      <div><dt>Tools</dt><dd>${esc(p.tools)}</dd></div>
-    </dl>
-    <div class="shot">${art(p,1)}</div>
-    <div class="shots"><div class="shot">${art(p,2)}</div><div class="shot">${art(p,3)}</div></div>
-    ${SECTIONS.map(([id,name,get,ph])=>{
-      const t = get(p);
-      return `<section id="s-${id}"><h2>${name}</h2>${t ? `<p>${esc(t)}</p>` : `<p class="placeholder">${ph}</p>`}</section>`;
-    }).join("")}
-    <a class="next" href="#${next.id}">
-      <span><small>Next project</small><b>${esc(next.name)}</b></span>
-      <svg width="20" height="14" viewBox="0 0 20 14"><path d="M1 7h17M12 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>`;
-  document.querySelectorAll("#toc button").forEach(b=>b.addEventListener("click",()=>{
-    document.getElementById("s-"+b.dataset.to).scrollIntoView({behavior: reduce() ? "auto" : "smooth"});
-  }));
-  if(tocObserver) tocObserver.disconnect();
-  tocObserver = new IntersectionObserver(es=>{
-    es.forEach(e=>{ if(e.isIntersecting){
-      document.querySelectorAll("#toc button").forEach(b=>b.classList.toggle("on", "s-"+b.dataset.to===e.target.id));
-    }});
-  },{rootMargin:"-30% 0px -60% 0px"});
-  document.querySelectorAll(".case-main section").forEach(s=>tocObserver.observe(s));
-}
 
 function renderResume(){
   const work = RESUME.work.flatMap(w => w.roles.map(r => `
@@ -598,10 +389,9 @@ const work = $("#work");
 let page = null, lastPage = "home", savedY = 0;
 
 function show(view){
-  ["v-home","v-resume","v-case"].forEach(v => document.getElementById(v).hidden = v !== view);
+  ["v-home","v-resume"].forEach(v => document.getElementById(v).hidden = v !== view);
 }
 function apply(h){
-  const p = PROJECTS.find(x=>x.id===h);
   if(h === "work"){
     if(page === null){ show("v-home"); page = "home"; }
     if(work.hidden){
@@ -614,17 +404,15 @@ function apply(h){
     return;
   }
   if(!work.hidden){ work.hidden = true; document.body.style.overflow = ""; scrollTo(0, savedY); }
-  const target = p ? "case:"+p.id : (h==="resume" ? "resume" : "home");
+  const target = h==="resume" ? "resume" : "home";
   if(target === page) return;
-  page = target; lastPage = p ? p.id : (h==="resume" ? "resume" : "home");
-  if(p){ renderCase(p); show("v-case"); }
-  else if(h==="resume"){ document.title = "Resume // Jayson Huynh"; show("v-resume"); }
+  page = target; lastPage = target;
+  if(h==="resume"){ document.title = "Resume // Jayson Huynh"; show("v-resume"); }
   else { document.title = "Jayson Huynh — Product Designer"; show("v-home"); }
   scrollTo(0,0);
 }
 function route(){
   let h = location.hash.slice(1) || "home";
-  if(PROJECTS.some(x=>x.id===h)){ history.replaceState(null,"","#work"); h = "work"; }
   const changesPage = h !== "work" && !(work.hidden === false && (h===lastPage));
   if(document.startViewTransition && !reduce() && changesPage && page !== null){
     document.startViewTransition(()=>apply(h));
@@ -634,7 +422,6 @@ addEventListener("hashchange", route);
 addEventListener("keydown", e=>{
   if(e.key !== "Escape") return;
   if(!work.hidden) location.hash = lastPage;
-  else if(page && page.startsWith("case:")) location.hash = "home";
 });
 (()=>{
   const trig = document.querySelector(".peek-trigger"); if(!trig) return;
