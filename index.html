@@ -654,10 +654,6 @@ document.addEventListener("click", e => {
   const a = e.target.closest(".peek a[target='_blank']");
   if(a) setTimeout(() => a.blur(), 0);
 });
-document.addEventListener("click", e => {
-  const a = e.target.closest(".peek a[target='_blank']");
-  if(a) setTimeout(() => a.blur(), 0);
-});
 document.querySelectorAll(".peek-trigger").forEach(t => t.addEventListener("click", () => {
   if(matchMedia("(hover:hover)").matches) t.blur();
 }));
