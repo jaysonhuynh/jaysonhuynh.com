@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Jayson Huynh — Product Designer</title>
+<meta name="description" content="Jayson Huynh is a product designer creating intuitive, inclusive, research-driven experiences.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0b;
+    --raise:#111113;
+    --raise-2:#17171a;
+    --fg:#ececea;
+    --fg-2:#a3a39f;
+    --fg-3:#6c6c68;
+    --line:#1d1d20;
+    --line-dash:#262629;
+    --tag-bg:#18181b;
+    --tag-fg:#9a9a96;
+    --ok:#3ecf8e;
+    --edge-c:#232327;
+    --underline:#3a3a3e;
+    --scroll:#2a2a2e;
+    --fade:rgba(10,10,11,.85);
+    --scrim:rgba(5,5,6,.6);
+    --shadow:rgba(0,0,0,.72);
+    --sel-bg:#ececea;--sel-fg:#0a0a0b;
+    --dv-b1:#1c1c20;--dv-b2:#0f0f11;--dv-g1:#16161a;--dv-g2:#0c0c0e;--dv-stroke:#2c2c31;
+    --dv-hi:#ececea;--dv-mid:#4a4a50;--dv-muted:#3a3a40;--dv-card:#1c1c21;--dv-glow:#ececea;--dv-glow-o:.07;
+    --col:620px;
+    --edge:24px;
+    --sans:"Geist",ui-sans-serif,system-ui,sans-serif;
+    --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --serif:"Instrument Serif",ui-serif,Georgia,serif;
+  }
+  @media (prefers-color-scheme:light){
+    :root{
+      --bg:#fafaf9;--raise:#ffffff;--raise-2:#f2f2f0;
+      --fg:#161616;--fg-2:#57575a;--fg-3:#8c8c88;
+      --line:#e8e8e5;--line-dash:#dcdcd8;
+      --tag-bg:#f2f2f0;--tag-fg:#66666a;--ok:#16a865;
+      --edge-c:#e2e2de;--underline:#c4c4bf;--scroll:#d2d2ce;
+      --fade:rgba(250,250,249,.85);--scrim:rgba(240,240,238,.55);--shadow:rgba(20,20,20,.16);
+      --sel-bg:#161616;--sel-fg:#fafaf9;
+      --dv-b1:#f4f4f2;--dv-b2:#e6e6e3;--dv-g1:#ffffff;--dv-g2:#f6f6f4;--dv-stroke:#d2d2ce;
+      --dv-hi:#1c1c1e;--dv-mid:#c6c6c2;--dv-muted:#d8d8d4;--dv-card:#efefec;--dv-glow:#000000;--dv-glow-o:.08;
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg);scrollbar-color:var(--scroll) transparent;scrollbar-gutter:stable}
+  body{
+    background:var(--bg);color:var(--fg);
+    font:14px/1.55 var(--sans);
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    min-height:100vh;
+  }
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  ::selection{background:var(--sel-bg);color:var(--sel-fg)}
+  :focus-visible{outline:1px solid var(--fg);outline-offset:3px;border-radius:3px}
+  [hidden]{display:none !important}
+
+  /* soft blur at the top and bottom edges while scrolling */
+  .edge{position:fixed;left:0;right:0;height:64px;z-index:30;pointer-events:none;
+    backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+  .edge.top{top:0;opacity:0;transition:opacity .25s;mask-image:linear-gradient(#000 20%,transparent);-webkit-mask-image:linear-gradient(#000 20%,transparent);
+    background:linear-gradient(var(--fade),transparent)}
+  .edge.bottom{bottom:0;opacity:0;transition:opacity .25s;mask-image:linear-gradient(transparent,#000 80%);-webkit-mask-image:linear-gradient(transparent,#000 80%);
+    background:linear-gradient(transparent,var(--fade))}
+
+  body.scrolled .edge.top,body.more .edge.bottom{opacity:1}
+  .sig{position:fixed;right:22px;bottom:16px;z-index:31;font:italic 26px/1 var(--serif);color:var(--fg-3);
+    letter-spacing:-.01em;user-select:none;transition:color .2s}
+  .sig:hover{color:var(--fg)}
+
+  .wrap{width:min(var(--col),100% - 40px);margin:0 auto;min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+
+  /* ---------- header ---------- */
+  .site-head{display:flex;justify-content:space-between;align-items:flex-end;padding:var(--edge) 0 14px;border-bottom:1px solid var(--line)}
+  .site-head .who b{display:block;font-weight:600}
+  .site-head .who span{color:var(--fg-2)}
+  .site-head nav{display:flex;gap:14px}
+  .site-head nav a{color:var(--fg-2);transition:color .15s}
+  .site-head nav a:hover,.site-head nav a[aria-current="page"]{color:var(--fg)}
+
+  /* ---------- home ---------- */
+  .hero{display:grid;place-items:center;min-height:clamp(290px,38vh,480px);flex:1 0 auto}
+  .spacer{flex:.5 0 0}
+  .hero svg{width:clamp(250px,26vh,360px);height:auto;overflow:visible}
+  .ph{position:relative;width:clamp(96px,10vh,120px);aspect-ratio:6/5;border:1px dashed var(--underline);border-radius:8px;display:grid;place-items:center;color:var(--line-dash);overflow:hidden}
+  .ph-x{position:absolute;inset:0;width:100%;height:100%}
+  .ph span{position:relative;background:var(--bg);padding:2px 6px;font:500 9px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);text-align:center}
+  .float{animation:float 7s ease-in-out infinite}
+  @keyframes float{50%{transform:translateY(-6px)}}
+  .blink{animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  .profile{display:grid;margin-bottom:96px}
+  #resume-body{margin-bottom:96px}
+  .profile > div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line-dash)}
+  .profile > div:last-child{border-bottom:0}
+  .profile dt{color:var(--fg-3)}
+  .profile dd a:not(.peek-card){border-bottom:1px solid var(--fg);transition:color .15s,border-color .15s}
+  .profile dd a:not(.peek-card):hover{color:var(--fg-2);border-color:var(--fg-2)}
+
+  .peek{position:relative;display:inline-block}
+  .peek-card{position:absolute;left:-12px;top:calc(100% + 10px);z-index:20;width:260px;display:grid;gap:10px;padding:14px;
+    background:var(--raise);border:1px solid var(--edge-c);border-radius:12px;box-shadow:0 20px 50px -12px var(--shadow);
+    opacity:0;visibility:hidden;transform:translateY(-4px) scale(.98);transform-origin:12% 0;
+    transition:opacity .18s ease,transform .22s cubic-bezier(.2,.8,.2,1),visibility 0s .22s,border-color .15s;pointer-events:none}
+  .peek-card{will-change:transform,opacity;backface-visibility:hidden;-webkit-font-smoothing:antialiased}
+  .peek-card::before{content:"";position:absolute;left:0;right:0;top:-12px;height:12px}
+  .peek:hover .peek-card,.peek:focus-within .peek-card{opacity:1;visibility:visible;transform:translateY(0) scale(1);pointer-events:auto;
+    transition:opacity .18s ease .12s,transform .22s cubic-bezier(.2,.8,.2,1) .12s,visibility 0s .12s}
+  .peek-top{display:flex;align-items:center;gap:10px}
+  .peek-top b{display:block;font-weight:600;color:var(--fg)}
+  .peek-mark{width:34px;height:34px;flex:none;border-radius:8px;display:grid;place-items:center;background:#ff462d;color:#fff;font-weight:600;font-size:16px}
+  .peek-url{display:block;font:12px var(--mono);color:var(--fg-3)}
+  .peek-desc{color:var(--fg-2);font-size:13px;line-height:1.5}
+  .peek-go{font-size:12.5px;color:var(--fg-3);padding-top:10px;border-top:1px dashed var(--line-dash);transition:color .15s}
+  .peek-card:hover .peek-go{color:var(--fg)}
+  .peek-card:hover{border-color:var(--fg-2)}
+  .peek-trigger{border-bottom:1px solid var(--fg);cursor:default;transition:color .15s,border-color .15s}
+  .peek-trigger:hover{color:var(--fg-2);border-color:var(--fg-2)}
+  .peek-trigger:focus{outline:none}
+  .peek-photo{width:200px;gap:0;padding:0;background:none;border:0;border-radius:14px;overflow:hidden}
+  .peek-photo img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:14px}
+  .peek-ph{display:grid;place-items:center;aspect-ratio:1;border:1px dashed var(--underline);border-radius:8px;font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+  .peek-mark-soft{background:#ffffff;color:#e0567f;font-size:13px;letter-spacing:.02em;box-shadow:inset 0 0 0 1px var(--edge-c)}
+  @media (hover:none){.peek-card:not(.peek-photo){display:none}}
+  .label{display:flex;justify-content:space-between;align-items:baseline;margin:84px 0 6px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+  .label h2{font-size:14px;font-weight:600}
+  .label button,.label a{color:var(--fg-3);transition:color .15s}
+  .label button:hover,.label a:hover{color:var(--fg)}
+
+  .entries{list-style:none}
+  .entry{display:grid;grid-template-columns:112px 1fr;gap:12px;padding:22px 0 24px;border-bottom:1px dashed var(--line-dash)}
+  .entry .when{color:var(--fg-3);font-family:var(--mono);font-size:12px;padding-top:2px}
+  .entry .when b{display:block;font-weight:400;color:var(--fg-2)}
+  .entry h3{font-size:14px;font-weight:600;display:inline;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s}
+  .entry a:hover h3{background-size:100% 1px}
+  .entry p{color:var(--fg-2);margin-top:4px;max-width:46ch}
+  .entry a{display:block}
+  .entry .arrow{display:inline-block;margin-left:6px;color:var(--fg-3);transition:transform .2s,color .2s}
+  .entry a:hover .arrow{transform:translateX(3px);color:var(--fg)}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;list-style:none}
+  .tags li{font:500 10.5px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--tag-fg);
+    background:var(--tag-bg);border:1px solid var(--edge-c);padding:5px 7px 4px;border-radius:3px}
+  .entry.soon{opacity:.55}
+  .entry.soon .when b{color:var(--fg-3)}
+
+  /* ---------- footer ---------- */
+  .site-foot{margin-top:auto;padding:30px 0 calc(var(--edge) - 2px);border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:20px}
+  .site-foot h4{font-size:14px;font-weight:600;margin-bottom:14px}
+  .site-foot ul{list-style:none;display:grid;gap:4px}
+  .site-foot ul a{color:var(--fg-2);transition:color .15s}
+  .site-foot ul a:hover{color:var(--fg)}
+  .status{display:flex;align-items:center;gap:9px;color:var(--fg-2);align-self:start;padding-top:calc(1.55em + 14px)}
+  .dot{position:relative;width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 6px rgba(62,207,142,.6);flex:none}
+  .dot::before,.dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--ok);animation:ping 2.4s cubic-bezier(0,0,.2,1) infinite}
+  .dot::after{animation-delay:1.2s}
+  @keyframes ping{0%{transform:scale(1);opacity:.7}80%,100%{transform:scale(3.2);opacity:0}}
+  .copy{grid-column:1/-1;margin-top:26px;color:var(--fg-3);font-size:12px;line-height:1.6}
+
+  /* ---------- work overlay ---------- */
+  .work{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:24px;overflow-y:auto;overscroll-behavior:contain;
+    background:var(--scrim);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .work-panel{width:min(480px,100%);background:var(--raise);border:1px solid var(--edge-c);border-radius:16px;overflow:hidden;
+    box-shadow:0 30px 80px -20px var(--shadow)}
+  .work-panel:focus{outline:none}
+  .work-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 12px 12px 18px;border-bottom:1px solid var(--line)}
+  .work-bar b{font-weight:600}
+  .work-tools{display:flex;gap:4px;align-items:center}
+  .work-tools button{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:var(--fg-3);transition:color .15s,background .15s}
+  .work-tools button:hover{color:var(--fg)}
+  .work-tools button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+  .work-tools .sep{width:1px;height:16px;background:var(--line-dash);margin:0 6px}
+  .grid{--cols:1;display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:18px;
+    width:min(calc(520px * var(--cols) + 18px * (var(--cols) - 1)),100% - 36px);margin:10px auto 96px}
+  .tile{display:block}
+  .tile .art{border-radius:10px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3;transition:border-color .2s,transform .35s cubic-bezier(.2,.8,.2,1)}
+  .tile:hover .art{border-color:var(--underline);transform:translateY(-2px)}
+  .tile .art svg{display:block;width:100%;height:100%}
+  .tile .cap{display:flex;justify-content:space-between;gap:12px;padding:10px 2px 0}
+  .tile .cap b{font-weight:600}
+  .tile .cap span{color:var(--fg-3);font:12px var(--mono)}
+
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .empty{display:grid;justify-items:center;text-align:center;padding:44px 28px 40px}
+  .kicker{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);display:flex;align-items:center;gap:8px}
+  .kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--fg-3);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.25}}
+  .empty h1{font:500 clamp(26px,3.4vw,32px)/1.1 var(--sans);letter-spacing:-.035em;margin:12px 0 10px;text-wrap:balance}
+  .empty .sub{text-wrap:pretty}
+  .empty .sub{color:var(--fg-2);max-width:40ch}
+  .empty .links{display:flex;gap:16px;margin-top:20px}
+  .empty .links a{color:var(--fg-2);border-bottom:1px solid var(--underline);transition:color .15s,border-color .15s}
+  .empty .links a:hover{color:var(--fg);border-color:var(--fg)}
+  .work.opening .work-panel{animation:panel-in .38s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes panel-in{from{opacity:0;transform:translateY(12px) scale(.98)}}
+  /* ---------- case study ---------- */
+  .case{display:grid;grid-template-columns:1fr minmax(0,var(--col)) 1fr;gap:0 40px;padding:0 24px}
+  .case-side{grid-column:1;justify-self:end;width:200px;position:sticky;top:0;align-self:start;padding-top:120px;height:100vh}
+  .back{display:inline-flex;align-items:center;gap:6px;color:var(--fg-2);transition:color .15s}
+  .back:hover{color:var(--fg)}
+  .side-meta{margin-top:26px;color:var(--fg-3);font-size:12px;display:grid;gap:2px}
+  .side-meta b{color:var(--fg-2);font-weight:400}
+  .toc{list-style:none;margin-top:24px;display:grid;gap:6px}
+  .toc button{color:var(--fg-3);text-align:left;transition:color .15s}
+  .toc button:hover,.toc button.on{color:var(--fg)}
+  .side-more{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);display:grid;gap:8px;list-style:none}
+  .side-more a{color:var(--fg-2);transition:color .15s}
+  .side-more a:hover{color:var(--fg)}
+  .case-main{grid-column:2;padding:56px 0 120px}
+  .case-mark{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--raise-2);border:1px solid var(--line);
+    font:italic 22px/1 var(--serif)}
+  .case-main h1{font:400 clamp(30px,4.4vw,40px)/1.08 var(--serif);letter-spacing:-.01em;margin:20px 0 14px;max-width:18ch}
+  .case-main .lede{color:var(--fg-2);font-size:15px;max-width:56ch}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);margin:26px 0 30px;border-top:1px dashed var(--line-dash);border-bottom:1px dashed var(--line-dash)}
+  .facts div{padding:12px 0}
+  .facts div + div{padding-left:16px;border-left:1px dashed var(--line-dash)}
+  .facts dt{color:var(--fg-3);font-size:12px}
+  .facts dd{margin-top:2px}
+  .shot{border-radius:12px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10}
+  .shot svg{display:block;width:100%;height:100%}
+  .shots{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  .shots .shot{aspect-ratio:4/3}
+  .case-main section{scroll-margin-top:70px}
+  .case-main h2{font-size:14px;font-weight:600;margin:52px 0 8px}
+  .case-main p{color:var(--fg-2);font-size:14.5px;line-height:1.65;max-width:62ch}
+  .placeholder{color:var(--fg-3) !important;font-style:italic}
+  .next{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .next small{display:block;color:var(--fg-3);font-size:12px}
+  .next b{font:400 24px/1.2 var(--serif)}
+  .next svg{color:var(--fg-3);transition:transform .2s,color .2s}
+  .next:hover svg{transform:translateX(4px);color:var(--fg)}
+
+  /* ---------- resume ---------- */
+  .rs-intro{padding:84px 0 0}
+  .rs-intro h1{font-size:14px;font-weight:600;margin-bottom:6px}
+  .rs-intro p{color:var(--fg-2);max-width:52ch}
+  .rs-meta{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:16px;color:var(--fg-3)}
+  .rs-meta a{color:var(--fg-2);border-bottom:1px solid var(--underline)}
+  .rs-meta a:hover{color:var(--fg);border-color:var(--fg)}
+  .rs-item{padding:26px 0 28px;border-bottom:1px dashed var(--line-dash)}
+  .rs-item:last-child{border-bottom:0}
+  .rs-item h3{font-size:14px;font-weight:600}
+  .rs-item h3 span{color:var(--fg-3);font-weight:400}
+  .rs-when{font:12px/1.5 var(--mono);color:var(--fg-3);margin-top:3px}
+  .rs-item ul{margin-top:12px;display:grid;gap:10px;list-style:none}
+  .rs-item li{color:var(--fg-2);max-width:62ch}
+  .rs-note{color:var(--fg-2);margin-top:10px}
+  .rs-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+  .sq{list-style:none;display:grid;gap:5px;padding-top:18px}
+  .sq li{position:relative;padding-left:16px;color:var(--fg-2)}
+  .sq li::before{content:"";position:absolute;left:0;top:.6em;width:5px;height:5px;background:var(--underline);border-radius:1px}
+
+  /* ---------- view transitions ---------- */
+  .site-head{view-transition-name:site-head}
+  ::view-transition-group(site-head){animation:none}
+  ::view-transition-old(site-head){display:none}
+  ::view-transition-new(site-head){animation:none}
+  ::view-transition-old(root){animation:vt-out .18s ease-in both}
+  ::view-transition-new(root){animation:vt-in .32s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes vt-out{to{opacity:0;filter:blur(3px)}}
+  @keyframes vt-in{from{opacity:0;transform:translateY(8px);filter:blur(3px)}}
+  .work.opening{animation:wk-in .3s cubic-bezier(.2,.8,.2,1)}
+  @keyframes wk-in{from{opacity:0}}
+  .work.opening .tile{animation:tile-in .5s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes tile-in{from{opacity:0;transform:translateY(14px)}}
+
+  /* ---------- responsive ---------- */
+  @media (min-width:1600px) and (min-height:900px){
+    :root{--col:700px}
+    body{font-size:15px}
+    .entry .when,.rs-when{font-size:12.5px}
+    :root{--edge:32px}
+  }
+  @media (min-width:2200px) and (min-height:1200px){
+    :root{--col:780px}
+    body{font-size:16px}
+    .rs-when{font-size:13.5px}
+  }
+  @media (max-width:1040px){
+    .case{display:block;padding:0}
+    .case-side{position:sticky;top:0;z-index:5;width:auto;height:auto;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;
+      background:linear-gradient(var(--bg) 70%,transparent)}
+    .case-side .side-meta,.case-side .toc,.case-side .side-more{display:none}
+    .case-main{width:min(var(--col),100% - 40px);margin:0 auto;padding-top:20px}
+  }
+  @media (max-width:560px){
+    .entry{grid-template-columns:1fr;gap:6px}
+    .entry .when b{display:inline;margin-right:8px}
+    .profile > div{grid-template-columns:78px 1fr}
+    .site-foot{grid-template-columns:1fr 1fr}
+    .status{grid-column:1/-1;padding-top:6px}
+    .hero{min-height:200px}.ph{width:96px}
+    .facts{grid-template-columns:1fr}
+    .facts div + div{padding-left:0;border-left:0;border-top:1px dashed var(--line-dash)}
+    .shots{grid-template-columns:1fr}
+    .rs-cols{grid-template-columns:1fr}
+    .work-tools .cols3{display:none}
+    .grid{--cols:1 !important}
+    .sig{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,::view-transition-old(root),::view-transition-new(root){animation:none !important;transition:none !important}
+  }
+  /* pixel cursors (drawn from scratch; swap the images for your own later) */
+  @media (hover:hover) and (pointer:fine){
+    html, body, * { cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAATCAYAAACk9eypAAAAeElEQVR4XpXSQQ7AIAgEQGt60v7/pdVrmyXRKILCHq3DmpSQUv6CIxF3PYhAKa8ZEfCgDqxoAha0gBMSwQ6pQENbIKEj4OjebUXOz/QZG7EAXMKfb6m1XKOansQnikENMi5gO+PnCDVgMq9Wo6221hLNky1BC3/BDya/UV8kNXtHAAAAAElFTkSuQmCC") 0 0, auto; cursor: -webkit-image-set(url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAATCAYAAACk9eypAAAAeElEQVR4XpXSQQ7AIAgEQGt60v7/pdVrmyXRKILCHq3DmpSQUv6CIxF3PYhAKa8ZEfCgDqxoAha0gBMSwQ6pQENbIKEj4OjebUXOz/QZG7EAXMKfb6m1XKOansQnikENMi5gO+PnCDVgMq9Wo6221hLNky1BC3/BDya/UV8kNXtHAAAAAElFTkSuQmCC") 1x, url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAYAAADeB1slAAAArklEQVR4Xs3XwQqAIBAE0AxPbv//pem1KBgPgmnq6A4EHaL2rYm6OSfXc22k7KT3xsQPsCR0gYXF+/O9FTne8QjBmxHtmydgSeYLRkvWCUZJ1gt6JXoErRJ9gr8SvYJaiX5BSaJXIHJ8LnjYqawXoFKs2WlKa/c6QanHtZkvQOVpb7FfwljU7qPmCXKV94YuMJhxpf8ZwfPpvMh1gC6wtZW3hi5oPgOk57pcJ+iCGy3kbNYJ7Zd4AAAAAElFTkSuQmCC") 2x) 0 0, auto; cursor: image-set(url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAATCAYAAACk9eypAAAAeElEQVR4XpXSQQ7AIAgEQGt60v7/pdVrmyXRKILCHq3DmpSQUv6CIxF3PYhAKa8ZEfCgDqxoAha0gBMSwQ6pQENbIKEj4OjebUXOz/QZG7EAXMKfb6m1XKOansQnikENMi5gO+PnCDVgMq9Wo6221hLNky1BC3/BDya/UV8kNXtHAAAAAElFTkSuQmCC") 1x, url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAYAAADeB1slAAAArklEQVR4Xs3XwQqAIBAE0AxPbv//pem1KBgPgmnq6A4EHaL2rYm6OSfXc22k7KT3xsQPsCR0gYXF+/O9FTne8QjBmxHtmydgSeYLRkvWCUZJ1gt6JXoErRJ9gr8SvYJaiX5BSaJXIHJ8LnjYqawXoFKs2WlKa/c6QanHtZkvQOVpb7FfwljU7qPmCXKV94YuMJhxpf8ZwfPpvMh1gC6wtZW3hi5oPgOk57pcJ+iCGy3kbNYJ7Zd4AAAAAElFTkSuQmCC") 2x) 0 0, auto; }
+    a, a *, button, button *, [role="button"], label, summary { cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAAAh0lEQVR4XrWS0QqAIAxFTXxy/v+XZq/FFSZTRreMDhRR7njbDMEhZzlxed8oKFSeSCI1Ev4XsH4kFrHWvS0RKb2px1E3raMCyyyDqPWAxfSADHUJNy8m0Pfzs2WYgi24w66L+A+R0tc/lSgtwSx5w/JBQuo+hS8plhLo7th4EKz0wj2JdiqMCxqQSHqZyCHtAAAAAElFTkSuQmCC") 5 0, pointer; cursor: -webkit-image-set(url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAAAh0lEQVR4XrWS0QqAIAxFTXxy/v+XZq/FFSZTRreMDhRR7njbDMEhZzlxed8oKFSeSCI1Ev4XsH4kFrHWvS0RKb2px1E3raMCyyyDqPWAxfSADHUJNy8m0Pfzs2WYgi24w66L+A+R0tc/lSgtwSx5w/JBQuo+hS8plhLo7th4EKz0wj2JdiqMCxqQSHqZyCHtAAAAAElFTkSuQmCC") 1x, url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAiCAYAAAA+stv/AAAAwElEQVR4Xu2X3Q5AMAxGTVyp939Sc0uQT5jVJh2txLkj/nb2rR1XZdK2NO4vHQbvMm+9pC7xEAnJUWDk3veH9xB1y7HUhLqB/wN+A41kCc1I64P6FIgNROrDoWICrl583wBHygyM2DEgTXMuMEO0ZkXfwEW3i6YZhHOcOs+hbyCVYvR9KZwxdQPbjojLwlPArB0D4C0TZgyIu+Fdwt20egZOBtClUKu59VsKewaegvuTsmvgrSzYNRBSqiuGqBuYAEFiUfcs+ZUyAAAAAElFTkSuQmCC") 2x) 5 0, pointer; cursor: image-set(url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAAAh0lEQVR4XrWS0QqAIAxFTXxy/v+XZq/FFSZTRreMDhRR7njbDMEhZzlxed8oKFSeSCI1Ev4XsH4kFrHWvS0RKb2px1E3raMCyyyDqPWAxfSADHUJNy8m0Pfzs2WYgi24w66L+A+R0tc/lSgtwSx5w/JBQuo+hS8plhLo7th4EKz0wj2JdiqMCxqQSHqZyCHtAAAAAElFTkSuQmCC") 1x, url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAiCAYAAAA+stv/AAAAwElEQVR4Xu2X3Q5AMAxGTVyp939Sc0uQT5jVJh2txLkj/nb2rR1XZdK2NO4vHQbvMm+9pC7xEAnJUWDk3veH9xB1y7HUhLqB/wN+A41kCc1I64P6FIgNROrDoWICrl583wBHygyM2DEgTXMuMEO0ZkXfwEW3i6YZhHOcOs+hbyCVYvR9KZwxdQPbjojLwlPArB0D4C0TZgyIu+Fdwt20egZOBtClUKu59VsKewaegvuTsmvgrSzYNRBSqiuGqBuYAEFiUfcs+ZUyAAAAAElFTkSuQmCC") 2x) 5 0, pointer; }
+  }
+</style>
+</head>
+<body>
+<div class="edge top" aria-hidden="true"></div>
+<div class="edge bottom" aria-hidden="true"></div>
+<!-- signature: add your own mark here later, e.g. <a class="sig" href="#home" aria-label="Jayson Huynh, home"><img src="..." alt=""></a> -->
+
+<!-- HOME -->
+<div class="wrap" id="v-home">
+  <header class="site-head">
+    <a class="who" href="#home"><b>Jayson Huynh</b><span>Product Designer</span></a>
+    <nav aria-label="Main"><a href="#work">Work</a><a href="#resume">Resume</a></nav>
+  </header>
+
+  <div class="hero">
+    <!-- placeholder: swap this box for your graphic, e.g. <img src="..." alt="" width="110"> -->
+    <div class="ph" role="img" aria-label="Placeholder for a graphic">
+      <span>Image</span>
+    </div>
+  </div>
+
+  <dl class="profile">
+    <div><dt>Name</dt><dd>Jayson Huynh</dd></div>
+    <div><dt>Location</dt><dd>Allen, Texas</dd></div>
+    <div><dt>Work</dt><dd>User Interface Designer at <span class="peek"><a href="https://www.kyndryl.com" target="_blank" rel="noopener" aria-describedby="peek-kyndryl">Kyndryl</a><a class="peek-card" id="peek-kyndryl" href="https://www.kyndryl.com" target="_blank" rel="noopener" tabindex="-1">
+          <span class="peek-top"><span class="peek-mark" aria-hidden="true">K</span><span><b>Kyndryl</b><span class="peek-url">kyndryl.com</span></span></span>
+          <span class="peek-desc">IT infrastructure services company, spun off from IBM in 2021.</span>
+          <span class="peek-go">Visit site <span aria-hidden="true">↗</span></span>
+        </a></span></dd></div>
+    <div><dt>About</dt><dd>Part-time pixel pusher, full-time people watcher. Bio grad turned designer. <span class="peek"><span class="peek-trigger" tabindex="0" aria-describedby="peek-eyewear">Eyewear enthusiast</span><span class="peek-card peek-photo" id="peek-eyewear" role="tooltip">
+          <img src="assets/eyewear.jpg" alt="Jayson holding up three pairs of glasses" width="400" height="400">
+        </span></span>. Previously <span class="peek"><a href="https://www.sandyliang.info" target="_blank" rel="noopener" aria-describedby="peek-sandy">Sandy Liang</a><a class="peek-card" id="peek-sandy" href="https://www.sandyliang.info" target="_blank" rel="noopener" tabindex="-1">
+          <span class="peek-top"><span class="peek-mark peek-mark-soft" aria-hidden="true">SL</span><span><b>Sandy Liang</b><span class="peek-url">sandyliang.info</span></span></span>
+          <span class="peek-desc">New York fashion label, founded in 2014.</span>
+          <span class="peek-go">Visit site <span aria-hidden="true">↗</span></span>
+        </a></span>.</dd></div>
+  </dl>
+  <div class="spacer" aria-hidden="true"></div>
+
+
+  <footer class="site-foot">
+    <div><h4>Sitemap</h4><ul><li><a href="#home">Home</a></li><li><a href="#work">Work</a></li><li><a href="#resume">Resume</a></li></ul></div>
+    <div><h4>Connect</h4><ul>
+      <li><a href="mailto:jaysonhuynh@gmail.com">Email</a></li>
+      <li><a href="https://www.instagram.com/jaysonhuynh/" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://www.linkedin.com/in/jaysonhuynh/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul></div>
+    <div class="status"><span class="dot" aria-hidden="true"></span>Designing in Dallas–Fort Worth</div>
+    <div class="copy">© 2026 Jayson Huynh<br>jaysonhuynh@gmail.com</div>
+  </footer>
+</div>
+
+<!-- RESUME -->
+<div class="wrap" id="v-resume" hidden>
+  <header class="site-head">
+    <a class="who" href="#home"><b>Jayson Huynh</b><span>Product Designer</span></a>
+    <nav aria-label="Main"><a href="#work">Work</a><a href="#resume" aria-current="page">Resume</a></nav>
+  </header>
+  <div id="resume-body"></div>
+  <footer class="site-foot">
+    <div><h4>Sitemap</h4><ul><li><a href="#home">Home</a></li><li><a href="#work">Work</a></li><li><a href="#resume">Resume</a></li></ul></div>
+    <div><h4>Connect</h4><ul>
+      <li><a href="mailto:jaysonhuynh@gmail.com">Email</a></li>
+      <li><a href="https://www.instagram.com/jaysonhuynh/" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://www.linkedin.com/in/jaysonhuynh/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul></div>
+    <div class="status"><span class="dot" aria-hidden="true"></span>Designing in Dallas–Fort Worth</div>
+    <div class="copy">© 2026 Jayson Huynh<br>jaysonhuynh@gmail.com</div>
+  </footer>
+</div>
+
+<!-- CASE STUDY -->
+<div class="case" id="v-case" hidden>
+  <aside class="case-side">
+    <a class="back" href="#home"><svg width="8" height="12" viewBox="0 0 8 12"><path d="M6 1 1.5 6 6 11" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Home</a>
+    <div class="side-meta" id="sideMeta"></div>
+    <ul class="toc" id="toc"></ul>
+    <ul class="side-more" id="sideMore"></ul>
+  </aside>
+  <main class="case-main" id="caseMain"></main>
+</div>
+
+<!-- WORK OVERLAY -->
+<div class="work" id="work" hidden>
+ <div class="work-panel" role="dialog" aria-modal="true" aria-label="Work" tabindex="-1">
+  <div class="work-bar">
+    <b>Work</b>
+    <div class="work-tools">
+      <button id="workClose" aria-label="Close"><svg width="12" height="12" viewBox="0 0 12 12"><path d="m2 2 8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+  <div class="empty">
+    <h1>Available upon request.</h1>
+    <p class="links"><a href="mailto:jaysonhuynh@gmail.com">jaysonhuynh@gmail.com</a><a href="https://www.linkedin.com/in/jaysonhuynh/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </div>
+ </div>
+</div>
+
+<script>
+/* ---------- content ---------- */
+/* Add a project by adding one object here. */
+const PROJECTS = [
+  {
+    id:"dallashacks", name:"DallasHacks", label:"Featured", year:"Case study", mark:"D",
+    title:"Redesigning a hackathon's home on the web",
+    desc:"Rebuilt the event site around registration, event details and accessibility across web, tablet and mobile.",
+    tags:["UI/UX design","Accessibility","Responsive","Figma"],
+    accent:"#6a80ff",
+    role:"UI/UX design", time:"Add timeline", tools:"Figma",
+    overview:"A redesign of the DallasHacks event website. The goal was to make registering, finding event details, and using the site with assistive technology straightforward on every screen size.",
+    real:true
+  },
+  {
+    id:"laced", name:"Laced", label:"Case study", year:"", mark:"L",
+    title:"Laced",
+    desc:"Add a one-line summary of Laced.",
+    tags:["Add tags"],
+    accent:"#4fd1a0",
+    role:"Add role", time:"Add timeline", tools:"Add tools"
+  }
+];
+
+const RESUME = {
+  summary:"Designing with empathy at the core — a product designer who crafts intuitive, inclusive, and research-driven solutions.",
+  work:[
+    {org:"Kyndryl", where:"", roles:[{title:"User Interface Designer", when:"Dec 2026 — Current", points:[]}]},
+    {org:"Bowe Systec", where:"Plano, Texas", roles:[{title:"Customer Experience Engineer", when:"Jun 2026 — Nov 2026", points:[
+      "Analyzed software, mechanical, and electrical issues to identify root causes and develop solutions that address underlying problems.",
+      "Interpreted technical schematics and systems documentation to understand how components interact from beginning-to-end, applying problem solving to identify failure points while troubleshooting.",
+      "Served as the primary point of contact for customers during equipment outages, communicating and keeping them informed while restoring systems to full functionality."]}]},
+    {org:"Collin College", where:"Plano, Texas", roles:[{title:"Student Assistant", when:"Mar 2023 — Jun 2025", points:[
+      "Managed data entry and record-keeping for student visits and records, ensuring accuracy, confidentiality, and consistency across internal systems.",
+      "Provided technical support for the computer lab, troubleshooting hardware and software issues to minimize downtime and support student productivity.",
+      "Served as the first point of contact for visitors and students, improving the overall visitor experience through clear communication, efficient issue resolution, and attention to user needs."]}]},
+    {org:"Sandy Liang", where:"New York City, New York", roles:[
+      {title:"E-commerce & Operations Assistant", when:"Dec 2019 — Apr 2020", points:[
+        "Oversaw e-commerce website development, ongoing maintenance, and optimization efforts, with a focus on usability, scalability, and site performance.",
+        "Improved the end-to-end customer journey by refining site navigation, product discovery, and checkout flows to reduce friction and support conversion.",
+        "Supported day-to-day e-commerce operations by collaborating across teams to maintain accurate product content, consistent updates, and a smooth shopping experience."]},
+      {title:"Design Intern", when:"Sep 2019 — Dec 2019", points:[
+        "Collaborated closely with a team of designers to research previous collections, analyze design trends, and develop detailed design drafts for upcoming projects, ensuring alignment with the studio’s creative vision.",
+        "Created comprehensive visual concepts by applying principles of color theory, typography, and layout design, exploring multiple iterations to establish cohesive and engaging design direction.",
+        "Developed and refined style guides and visual assets, carefully ensuring all design elements were consistent with established brand guidelines and creative standards."]}]}
+  ],
+  education:[
+    {org:"Collin College", where:"Plano, Texas", title:"AAS in Communication Design, User Experience", when:"Jan 2023 — May 2025"},
+    {org:"Baylor University", where:"Waco, Texas", title:"BA in Biology", when:"Aug 2014 — May 2019"}
+  ],
+  skills:["Interaction Design","User Research","Prototyping","Design Systems","Information Architecture","Usability Testing","0→1 Innovation"],
+  technical:["Figma","Miro","Framer","Claude","Illustrator","Photoshop","Google Workspace"]
+};
+
+/* ---------- placeholder art ----------
+   Dark screens in each project's accent. Swap for real work:
+   replace art(p, n) with <img src="..." alt="..."> */
+function art(p, v=0){
+  const W=400,H=300,a=p.accent, id=p.id+v;
+  const layouts = [
+    // 0: browser + phone
+    `<g transform="translate(46 58)">
+       <rect width="232" height="170" rx="8" fill="#121215" stroke="#26262b"/>
+       <rect width="232" height="20" rx="8" fill="#18181c"/><rect y="12" width="232" height="8" fill="#18181c"/>
+       <circle cx="12" cy="10" r="3" fill="#2e2e34"/><circle cx="22" cy="10" r="3" fill="#2e2e34"/><circle cx="32" cy="10" r="3" fill="#2e2e34"/>
+       <rect x="18" y="40" width="96" height="10" rx="2" fill="#ececea" opacity=".9"/>
+       <rect x="18" y="58" width="128" height="5" rx="2.5" fill="#3e3e45"/><rect x="18" y="68" width="110" height="5" rx="2.5" fill="#3e3e45"/>
+       <rect x="18" y="86" width="52" height="16" rx="8" fill="${a}"/>
+       <rect x="18" y="118" width="196" height="36" rx="4" fill="#17171b" stroke="#24242a"/>
+     </g>
+     <g transform="translate(262 112)">
+       <rect width="88" height="160" rx="16" fill="#0e0e10" stroke="#2c2c32"/>
+       <rect x="6" y="6" width="76" height="148" rx="11" fill="#141417"/>
+       <rect x="16" y="26" width="44" height="6" rx="3" fill="#ececea" opacity=".85"/>
+       <rect x="16" y="38" width="56" height="4" rx="2" fill="#3e3e45"/><rect x="16" y="46" width="48" height="4" rx="2" fill="#3e3e45"/>
+       <rect x="16" y="60" width="56" height="44" rx="4" fill="${a}" opacity=".18" stroke="${a}" stroke-opacity=".4"/>
+       <rect x="16" y="126" width="56" height="16" rx="8" fill="${a}"/>
+     </g>`,
+    // 1: wide hero
+    `<g transform="translate(36 40)">
+       <rect width="328" height="220" rx="8" fill="#121215" stroke="#26262b"/>
+       <rect x="16" y="16" width="40" height="6" rx="3" fill="#3e3e45"/>
+       <rect x="240" y="14" width="72" height="10" rx="5" fill="${a}"/>
+       <rect x="16" y="58" width="170" height="16" rx="3" fill="#ececea" opacity=".92"/>
+       <rect x="16" y="80" width="120" height="16" rx="3" fill="#ececea" opacity=".92"/>
+       <rect x="16" y="110" width="150" height="5" rx="2.5" fill="#3e3e45"/><rect x="16" y="120" width="130" height="5" rx="2.5" fill="#3e3e45"/>
+       <rect x="16" y="140" width="70" height="20" rx="10" fill="${a}"/><rect x="94" y="140" width="70" height="20" rx="10" fill="none" stroke="#3e3e45"/>
+       <rect x="204" y="52" width="108" height="112" rx="6" fill="${a}" opacity=".14" stroke="${a}" stroke-opacity=".35"/>
+       <circle cx="258" cy="108" r="26" fill="none" stroke="${a}" stroke-opacity=".6"/>
+       <rect x="16" y="182" width="296" height="1" fill="#24242a"/>
+       <rect x="16" y="194" width="60" height="5" rx="2.5" fill="#3e3e45"/><rect x="120" y="194" width="60" height="5" rx="2.5" fill="#3e3e45"/><rect x="224" y="194" width="60" height="5" rx="2.5" fill="#3e3e45"/>
+     </g>`,
+    // 2: form / registration
+    `<g transform="translate(110 30)">
+       <rect width="180" height="240" rx="10" fill="#121215" stroke="#26262b"/>
+       <rect x="18" y="22" width="90" height="10" rx="2" fill="#ececea" opacity=".9"/>
+       <rect x="18" y="38" width="120" height="4" rx="2" fill="#3e3e45"/>
+       ${[0,1,2].map(i=>`<rect x="18" y="${62+i*40}" width="40" height="4" rx="2" fill="#56565e"/><rect x="18" y="${70+i*40}" width="144" height="20" rx="4" fill="#17171b" stroke="${i===1?a:'#2a2a30'}"/>`).join("")}
+       <rect x="18" y="186" width="10" height="10" rx="2" fill="${a}"/><rect x="34" y="189" width="80" height="4" rx="2" fill="#3e3e45"/>
+       <rect x="18" y="206" width="144" height="20" rx="10" fill="${a}"/>
+     </g>`,
+    // 3: schedule list
+    `<g transform="translate(60 36)">
+       <rect width="280" height="228" rx="10" fill="#121215" stroke="#26262b"/>
+       <rect x="18" y="20" width="80" height="9" rx="2" fill="#ececea" opacity=".9"/>
+       <rect x="200" y="18" width="62" height="14" rx="7" fill="none" stroke="#3e3e45"/>
+       ${[0,1,2,3,4].map(i=>`<rect x="18" y="${50+i*34}" width="244" height="1" fill="#22222a"/>
+         <rect x="18" y="${60+i*34}" width="34" height="5" rx="2.5" fill="#56565e"/>
+         <rect x="70" y="${58+i*34}" width="${110-i*12}" height="7" rx="2" fill="#d6d6d3" opacity=".8"/>
+         <rect x="70" y="${70+i*34}" width="${80+i*6}" height="4" rx="2" fill="#3e3e45"/>
+         <circle cx="252" cy="${66+i*34}" r="4" fill="${i===1?a:'#2e2e34'}"/>`).join("")}
+     </g>`
+  ];
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${p.name} placeholder image">
+    <defs>
+      <radialGradient id="g${id}" cx=".7" cy=".1" r=".9"><stop offset="0" stop-color="${a}" stop-opacity=".16"/><stop offset=".6" stop-color="${a}" stop-opacity="0"/></radialGradient>
+      <pattern id="d${id}" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="#ffffff" opacity=".06"/></pattern>
+    </defs>
+    <rect width="${W}" height="${H}" fill="#0d0d0f"/>
+    <rect width="${W}" height="${H}" fill="url(#d${id})"/>
+    <rect width="${W}" height="${H}" fill="url(#g${id})"/>
+    ${layouts[v % layouts.length]}
+  </svg>`;
+}
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const arrow = `<span class="arrow" aria-hidden="true">→</span>`;
+
+/* ---------- work overlay ---------- */
+$("#workClose").addEventListener("click",()=>{ location.hash = lastPage; });
+$("#work").addEventListener("click", e=>{ if(e.target === e.currentTarget) location.hash = lastPage; });
+
+/* ---------- case study ---------- */
+const SECTIONS = [
+  ["overview","Overview", p => p.overview, "What is this project, and who is it for?"],
+  ["problem","Problem", p => p.problem, "What wasn't working, and how did you find out?"],
+  ["process","Process", p => p.process, "Research, sketches, iterations, testing."],
+  ["outcome","Outcome", p => p.outcome, "What shipped and what changed because of it."]
+];
+let tocObserver;
+function renderCase(p){
+  const i = PROJECTS.indexOf(p), next = PROJECTS[(i+1)%PROJECTS.length];
+  document.title = `${p.name} // Jayson Huynh`;
+  $("#sideMeta").innerHTML = `<span>${esc(p.label)}</span><span>Role <b>${esc(p.role)}</b></span><span>Tools <b>${esc(p.tools)}</b></span>`;
+  $("#toc").innerHTML = SECTIONS.map(([id,name])=>`<li><button data-to="${id}">${name}</button></li>`).join("");
+  $("#sideMore").innerHTML = PROJECTS.filter(x=>x!==p).map(x=>`<li><a href="#${x.id}">${esc(x.name)} →</a></li>`).join("") + `<li><a href="#work">All work</a></li>`;
+  $("#caseMain").innerHTML = `
+    <div class="case-mark" aria-hidden="true">${esc(p.mark)}</div>
+    <h1>${esc(p.real ? p.title : p.name)}</h1>
+    <p class="lede">${esc(p.desc)}</p>
+    <dl class="facts">
+      <div><dt>Role</dt><dd>${esc(p.role)}</dd></div>
+      <div><dt>Timeline</dt><dd>${esc(p.time)}</dd></div>
+      <div><dt>Tools</dt><dd>${esc(p.tools)}</dd></div>
+    </dl>
+    <div class="shot">${art(p,1)}</div>
+    <div class="shots"><div class="shot">${art(p,2)}</div><div class="shot">${art(p,3)}</div></div>
+    ${SECTIONS.map(([id,name,get,ph])=>{
+      const t = get(p);
+      return `<section id="s-${id}"><h2>${name}</h2>${t ? `<p>${esc(t)}</p>` : `<p class="placeholder">${ph}</p>`}</section>`;
+    }).join("")}
+    <a class="next" href="#${next.id}">
+      <span><small>Next project</small><b>${esc(next.name)}</b></span>
+      <svg width="20" height="14" viewBox="0 0 20 14"><path d="M1 7h17M12 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>`;
+  document.querySelectorAll("#toc button").forEach(b=>b.addEventListener("click",()=>{
+    document.getElementById("s-"+b.dataset.to).scrollIntoView({behavior: reduce() ? "auto" : "smooth"});
+  }));
+  if(tocObserver) tocObserver.disconnect();
+  tocObserver = new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){
+      document.querySelectorAll("#toc button").forEach(b=>b.classList.toggle("on", "s-"+b.dataset.to===e.target.id));
+    }});
+  },{rootMargin:"-30% 0px -60% 0px"});
+  document.querySelectorAll(".case-main section").forEach(s=>tocObserver.observe(s));
+}
+
+/* ---------- resume ---------- */
+function renderResume(){
+  const work = RESUME.work.flatMap(w => w.roles.map(r => `
+    <div class="rs-item">
+      <h3>${esc(r.title)} <span>at</span> ${esc(w.org)}</h3>
+      <div class="rs-when">${r.when}${w.where ? " · " + esc(w.where) : ""}</div>
+    </div>`)).join("");
+  const edu = RESUME.education.map(e => `
+    <div class="rs-item">
+      <h3>${esc(e.title)} <span>at</span> ${esc(e.org)}</h3>
+      <div class="rs-when">${esc(e.where)}</div>
+      ${e.note ? `<p class="rs-note">${esc(e.note)}</p>` : ""}
+    </div>`).join("");
+  $("#resume-body").innerHTML = `
+    <section class="rs-intro">
+      <h1>About me</h1>
+      <p>${esc(RESUME.summary)}</p>
+      <div class="rs-meta"><span>Allen, Texas</span><a href="mailto:jaysonhuynh@gmail.com">jaysonhuynh@gmail.com</a><a href="https://www.linkedin.com/in/jaysonhuynh/" target="_blank" rel="noopener">LinkedIn</a></div>
+    </section>
+    <div class="label"><h2>Experience</h2></div>${work}
+    <div class="label"><h2>Education</h2></div>${edu}
+    <div class="rs-cols">
+      <section><div class="label"><h2>Skills</h2></div><ul class="sq">${RESUME.skills.map(k=>`<li>${esc(k)}</li>`).join("")}</ul></section>
+      <section><div class="label"><h2>Technical</h2></div><ul class="sq">${RESUME.technical.map(k=>`<li>${esc(k)}</li>`).join("")}</ul></section>
+    </div>`;
+}
+renderResume();
+
+/* ---------- routing ---------- */
+const reduce = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+const work = $("#work");
+let page = null, lastPage = "home", savedY = 0;
+
+function show(view){
+  ["v-home","v-resume","v-case"].forEach(v => document.getElementById(v).hidden = v !== view);
+}
+function apply(h){
+  const p = PROJECTS.find(x=>x.id===h);
+  if(h === "work"){
+    if(page === null){ show("v-home"); page = "home"; }
+    if(work.hidden){
+      savedY = scrollY;
+      work.hidden = false; work.scrollTop = 0;
+      work.classList.remove("opening"); void work.offsetWidth; work.classList.add("opening");
+      document.body.style.overflow = "hidden";
+      $(".work-panel").focus({preventScroll:true});
+    }
+    return;
+  }
+  if(!work.hidden){ work.hidden = true; document.body.style.overflow = ""; scrollTo(0, savedY); }
+  const target = p ? "case:"+p.id : (h==="resume" ? "resume" : "home");
+  if(target === page) return;
+  page = target; lastPage = p ? p.id : (h==="resume" ? "resume" : "home");
+  if(p){ renderCase(p); show("v-case"); }
+  else if(h==="resume"){ document.title = "Resume // Jayson Huynh"; show("v-resume"); }
+  else { document.title = "Jayson Huynh — Product Designer"; show("v-home"); }
+  scrollTo(0,0);
+}
+function route(){
+  let h = location.hash.slice(1) || "home";
+  if(PROJECTS.some(x=>x.id===h)){ history.replaceState(null,"","#work"); h = "work"; }
+  const changesPage = h !== "work" && !(work.hidden === false && (h===lastPage));
+  if(document.startViewTransition && !reduce() && changesPage && page !== null){
+    document.startViewTransition(()=>apply(h));
+  } else apply(h);
+}
+addEventListener("hashchange", route);
+addEventListener("keydown", e=>{
+  if(e.key !== "Escape") return;
+  if(!work.hidden) location.hash = lastPage;
+  else if(page && page.startsWith("case:")) location.hash = "home";
+});
+const onScroll = () => {
+  document.body.classList.toggle("scrolled", scrollY > 8);
+  document.body.classList.toggle("more", innerHeight + scrollY < document.documentElement.scrollHeight - 8);
+};
+addEventListener("scroll", onScroll, {passive:true});
+addEventListener("resize", onScroll);
+addEventListener("hashchange", () => requestAnimationFrame(onScroll));
+route(); onScroll();
+</script>
+<!-- 8-bit star cursor trail (desktop mouse only) -->
+<canvas id="trail" aria-hidden="true" style="position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:60"></canvas>
+<script>
+(()=>{
+  const fine = matchMedia("(hover:hover) and (pointer:fine)");
+  const still = matchMedia("(prefers-reduced-motion: reduce)");
+  const cv = document.getElementById("trail"), ctx = cv.getContext("2d");
+  const STAR = [            /* 8 x 8 pixels = 8px across */
+    "...##...",
+    "...##...",
+    "..####..",
+    "########",
+    ".######.",
+    "..####..",
+    ".##..##.",
+    ".#....#."
+  ];
+  const SPARK = [".#.","###",".#."];
+  const lightMode = matchMedia("(prefers-color-scheme: light)");
+  const pal = () => lightMode.matches
+    ? {shade:"#e58fb0", fill:"#ffc2d8", glint:"#ffffff"}   /* light mode: soft pink */
+    : {shade:"#cdb45e", fill:"#fff0a6", glint:"#ffffff"};  /* dark mode: pale yellow */
+  let dpr = 1, parts = [], last = null, raf = 0;
+  function size(){ dpr = devicePixelRatio || 1; cv.width = innerWidth*dpr; cv.height = innerHeight*dpr; ctx.imageSmoothingEnabled = false; }
+  size(); addEventListener("resize", size);
+  function sprite(shape, x, y, px, a){
+    const w = shape[0].length, h = shape.length, ox = Math.round(x - w*px/2), oy = Math.round(y - h*px/2);
+    ctx.globalAlpha = a;
+    const c = pal();
+    ctx.fillStyle = c.shade;                         /* 1px drop shadow for that cartridge look */
+    for(let r=0;r<h;r++) for(let q=0;q<w;q++) if(shape[r][q]==="#") ctx.fillRect(ox+q*px+1, oy+r*px+1, px, px);
+    ctx.fillStyle = c.fill;
+    for(let r=0;r<h;r++) for(let q=0;q<w;q++) if(shape[r][q]==="#") ctx.fillRect(ox+q*px, oy+r*px, px, px);
+    if(shape === STAR){ ctx.fillStyle = c.glint; ctx.fillRect(ox+3*px, oy+2*px, px, px); }
+  }
+  function spawn(x, y){
+    const big = Math.random() < .55;
+    parts.push({x, y, vx:(Math.random()-.5)*.6, vy:.4+Math.random()*.6, born:performance.now(), life:big?750:520, big});
+    if(parts.length > 60) parts.shift();
+    if(!raf) raf = requestAnimationFrame(draw);
+  }
+  addEventListener("pointermove", e=>{
+    if(!fine.matches || still.matches || e.pointerType !== "mouse") return;
+    if(last && Math.hypot(e.clientX-last.x, e.clientY-last.y) < 34) return;   /* one star every ~34px of travel */
+    last = {x:e.clientX, y:e.clientY};
+    spawn(e.clientX, e.clientY + 6);
+  }, {passive:true});
+  function draw(now){
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    parts = parts.filter(p => now - p.born < p.life);
+    for(const p of parts){
+      const t = (now - p.born) / p.life;
+      p.x += p.vx; p.y += p.vy;
+      const steps = Math.floor(t*4)/4;              /* fade in chunky steps */
+      sprite(p.big ? STAR : SPARK, p.x, p.y, 1, 1 - steps*.85);
+    }
+    ctx.globalAlpha = 1;
+    raf = parts.length ? requestAnimationFrame(draw) : 0;
+    if(!raf) ctx.clearRect(0,0,innerWidth,innerHeight);
+  }
+})();
+</script>
+</body>
+</html>
